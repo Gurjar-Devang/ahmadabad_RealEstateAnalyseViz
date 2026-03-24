@@ -1,0 +1,13 @@
+# Local secrets
+.env
+.env.*
+*.token
+*.secret
+secrets.*
+
+# VS Code local-only environment files
+.vscode/*.local.json
+
+# Python cache
+__pycache__/
+*.pyc
