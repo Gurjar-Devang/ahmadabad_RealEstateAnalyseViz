@@ -207,6 +207,12 @@ def create_kpi_card(title: str, value: str, note: str) -> None:
     )
 
 
+def explain_chart(title: str, insight: str, x_axis: str, y_axis: str) -> None:
+    st.caption(
+        f"{title}: {insight} | X-axis: {x_axis} | Y-axis: {y_axis}"
+    )
+
+
 def build_custom_bar_data(
     source_df: pd.DataFrame,
     x_field: str,
@@ -337,6 +343,12 @@ with summary_col1:
         yaxis_title="Price (Cr)",
     )
     st.plotly_chart(scatter_fig, width="stretch")
+    explain_chart(
+        "Price vs Area by BHK Mix",
+        "Yeh chart dikhata hai ki alag-alag BHK listings me area badhne par price kaise change hota hai",
+        "Property area in square feet",
+        "Property price in crore",
+    )
 
 with summary_col2:
     donut_fig = px.pie(
@@ -352,6 +364,9 @@ with summary_col2:
         font=dict(color="#102a43"),
     )
     st.plotly_chart(donut_fig, width="stretch")
+    st.caption(
+        "Inventory Mix: Yeh chart batata hai ki filtered listings me har property type ka kitna share hai."
+    )
 
 mid_col1, mid_col2 = st.columns(2)
 
@@ -383,6 +398,12 @@ with mid_col1:
         yaxis_title="Location Name",
     )
     st.plotly_chart(bar_fig, width="stretch")
+    explain_chart(
+        "Top 10 Locations by Average Price",
+        "Yeh chart sabse mehengi average price wale top locations ko compare karta hai",
+        "Average property price in crore",
+        "Location name",
+    )
 
 with mid_col2:
     bhk_trend = (
@@ -424,6 +445,10 @@ with mid_col2:
         xaxis_title="BHK Type",
     )
     st.plotly_chart(trend_fig, width="stretch")
+    st.caption(
+        "BHK Pricing Trend: Yeh chart batata hai ki har BHK type me average price aur average rate per sqft ka trend kya hai. "
+        "X-axis: BHK type | Left Y-axis: Average price in crore | Right Y-axis: Average rate per sqft"
+    )
 
 st.markdown('<div class="section-title">Custom Bar Chart</div>', unsafe_allow_html=True)
 chart_control_col1, chart_control_col2, chart_control_col3, chart_control_col4 = st.columns(4)
@@ -485,6 +510,12 @@ custom_bar_fig.update_layout(
     yaxis_title=f"{chart_aggregation.title()} {y_field_labels[chart_y_field]}",
 )
 st.plotly_chart(custom_bar_fig, width="stretch")
+explain_chart(
+    custom_chart_title,
+    f"Yeh custom chart selected category ke against {chart_aggregation} {y_field_labels[chart_y_field].lower()} dikhata hai",
+    chart_field_labels[chart_x_field],
+    f"{chart_aggregation.title()} {y_field_labels[chart_y_field]}",
+)
 
 st.markdown('<div class="section-title">KPI Model</div>', unsafe_allow_html=True)
 model_col1, model_col2 = st.columns([1.15, 0.85])
@@ -545,6 +576,12 @@ with model_col2:
         yaxis_title="Location Name",
     )
     st.plotly_chart(score_fig, width="stretch")
+    explain_chart(
+        "Top Markets by KPI Score",
+        "Yeh chart highest market score wale locations ko rank karta hai",
+        "KPI score",
+        "Location name",
+    )
 
 bottom_col1, bottom_col2, bottom_col3 = st.columns(3)
 with bottom_col1:
