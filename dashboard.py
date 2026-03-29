@@ -115,6 +115,20 @@ def inject_styles() -> None:
             font-weight: 700;
             margin: 0.4rem 0 0.9rem 0;
         }
+        .chart-note {
+            background: rgba(255, 255, 255, 0.9);
+            border-left: 4px solid #1f4e79;
+            border-radius: 12px;
+            padding: 0.75rem 0.9rem;
+            margin-top: 0.35rem;
+            color: #243b53;
+            font-size: 0.92rem;
+            line-height: 1.45;
+            box-shadow: 0 8px 20px rgba(36, 56, 99, 0.08);
+        }
+        .chart-note strong {
+            color: #102a43;
+        }
         [data-testid="stSidebar"] {
             background: linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
             border-right: 1px solid rgba(31, 78, 121, 0.08);
@@ -208,8 +222,16 @@ def create_kpi_card(title: str, value: str, note: str) -> None:
 
 
 def explain_chart(title: str, insight: str, x_axis: str, y_axis: str) -> None:
-    st.caption(
-        f"{title}: {insight} | X-axis: {x_axis} | Y-axis: {y_axis}"
+    st.markdown(
+        f"""
+        <div class="chart-note">
+            <strong>{title}</strong><br>
+            {insight}<br>
+            <strong>X-axis:</strong> {x_axis}<br>
+            <strong>Y-axis:</strong> {y_axis}
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
 
@@ -364,8 +386,14 @@ with summary_col2:
         font=dict(color="#102a43"),
     )
     st.plotly_chart(donut_fig, width="stretch")
-    st.caption(
-        "Inventory Mix: Yeh chart batata hai ki filtered listings me har property type ka kitna share hai."
+    st.markdown(
+        """
+        <div class="chart-note">
+            <strong>Inventory Mix</strong><br>
+            Yeh chart batata hai ki filtered listings me har property type ka kitna share hai.
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
 mid_col1, mid_col2 = st.columns(2)
@@ -445,9 +473,17 @@ with mid_col2:
         xaxis_title="BHK Type",
     )
     st.plotly_chart(trend_fig, width="stretch")
-    st.caption(
-        "BHK Pricing Trend: Yeh chart batata hai ki har BHK type me average price aur average rate per sqft ka trend kya hai. "
-        "X-axis: BHK type | Left Y-axis: Average price in crore | Right Y-axis: Average rate per sqft"
+    st.markdown(
+        """
+        <div class="chart-note">
+            <strong>BHK Pricing Trend</strong><br>
+            Yeh chart batata hai ki har BHK type me average price aur average rate per sqft ka trend kya hai.<br>
+            <strong>X-axis:</strong> BHK type<br>
+            <strong>Left Y-axis:</strong> Average price in crore<br>
+            <strong>Right Y-axis:</strong> Average rate per sqft
+        </div>
+        """,
+        unsafe_allow_html=True,
     )
 
 st.markdown('<div class="section-title">Custom Bar Chart</div>', unsafe_allow_html=True)
