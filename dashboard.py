@@ -268,18 +268,22 @@ st.sidebar.header("Filters")
 selected_locations = st.sidebar.multiselect(
     "Choose Location Name",
     options=sorted(df["location"].unique()),
+    placeholder="Choose Location Name",
 )
 selected_bhk = st.sidebar.multiselect(
     "Choose BHK Type",
     options=sorted(df["bhk_label"].unique(), key=lambda x: int(x.split()[0])),
+    placeholder="Choose BHK Type",
 )
 selected_property_types = st.sidebar.multiselect(
     "Choose Property Type",
     options=sorted(df["property_type"].unique()),
+    placeholder="Choose Property Type",
 )
 selected_area_types = st.sidebar.multiselect(
     "Choose Area Category",
     options=sorted(df["area"].unique()),
+    placeholder="Choose Area Category",
 )
 price_range = st.sidebar.slider(
     "Choose Price Range (Cr)",
