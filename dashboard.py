@@ -129,6 +129,17 @@ def inject_styles() -> None:
         .chart-note strong {
             color: #102a43;
         }
+        .sidebar-note {
+            background: rgba(255, 255, 255, 0.96);
+            color: #102a43;
+            border: 1px solid rgba(31, 78, 121, 0.14);
+            border-radius: 12px;
+            padding: 0.7rem 0.8rem;
+            margin: 0.4rem 0 0.8rem 0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            box-shadow: 0 6px 16px rgba(36, 56, 99, 0.08);
+        }
         [data-testid="stSidebar"] {
             background: linear-gradient(180deg, #ffffff 0%, #f4f8fc 100%);
             border-right: 1px solid rgba(31, 78, 121, 0.08);
@@ -285,7 +296,14 @@ selected_area_types = st.sidebar.multiselect(
     options=sorted(df["area"].unique()),
     placeholder="Choose Area Category",
 )
-st.sidebar.caption("Use the red slider to set the minimum and maximum property price shown in the dashboard.")
+st.sidebar.markdown(
+    """
+    <div class="sidebar-note">
+        The red slider sets the minimum and maximum property price shown in the dashboard.
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 price_range = st.sidebar.slider(
     "Select Property Price Range (Cr)",
     min_value=float(df["price"].min()),
