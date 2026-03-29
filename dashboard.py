@@ -286,10 +286,11 @@ selected_area_types = st.sidebar.multiselect(
     placeholder="Choose Area Category",
 )
 price_range = st.sidebar.slider(
-    "Choose Price Range (Cr)",
+    "Select Property Price Range (Cr)",
     min_value=float(df["price"].min()),
     max_value=float(df["price"].quantile(0.99)),
     value=(float(df["price"].min()), float(df["price"].quantile(0.90))),
+    help="Yeh red range line minimum aur maximum property price define karti hai jo dashboard me show hoga.",
 )
 
 filtered_df = df.copy()
